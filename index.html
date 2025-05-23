@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Eid Magic Gift Box for Hayat</title>
+    <title>Eid Box for Hayat</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand:wght@600&display=swap');
 
@@ -46,7 +46,8 @@
         .box-base {
             width: 300px;
             height: 180px;
-            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            background: linear-gradient(72deg, rgb(44, 222, 242) 0.00%, rgb(156, 43, 171) 35.00%, rgb(39, 43, 44) 100.00%);
+
             border-radius: 5px 5px 0px 0px;
             box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.2), 0 41px 35px rgba(0, 0, 0, 0.3);
             position: absolute;
@@ -56,27 +57,40 @@
             position: relative;
             transform-style: preserve-3d;
             transform: translateX(-50%);
+            transition: 1s;
+        }
 
+        #openBox:checked~.container .box-base {
+            height: 35px;
+            background: transparent;
         }
 
         .box-base::before {
-            content: " ";
+            content: "Click me ";
             position: absolute;
+            font-family: 'Caveat';
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
 
         }
 
-        .box-base::after {
-            content: " ";
-            position: absolute;
+        #openBox:checked~.container .box-base::before {
+            content: "Eid Al-Adha Mubarek";
+            font-size: 20px;
+            color: #f9d71c;
+            font-weight: 600;
         }
+
 
         /* Box lid */
         .box-lid {
             width: 300px;
             height: 140px;
-            background: linear-gradient(145deg, #f39c12, #d35400);
+            background: linear-gradient(72deg, rgb(44, 222, 242) 0.00%, rgb(156, 43, 171) 35.00%, rgb(39, 43, 44) 100.00%);
+
             border-radius: 20px 20px 0 0;
-            box-shadow: inset 0 3px 8px rgba(255, 255, 255, 0.3), 0 6px 10px rgba(0, 0, 0, 0.3);
             position: absolute;
             top: 0;
             left: 50%;
@@ -84,30 +98,59 @@
             transform-style: preserve-3d;
             transition: transform 1s ease;
             z-index: 10;
-            box-shadow: 0 0 190px gold;
-            animation: pulseGlow 2.5s infinite;
             transform: rotateX(72deg) translateX(-50%);
         }
 
         /* Lid open animation on checkbox checked */
+
+
         #openBox:checked~.container .box-lid {
 
             transform: rotateX(-160deg) translateX(-50%);
-
-            box-shadow: 0 0 40px #f1c40f;
-            animation: none;
+            transform: rotateY(-221deg) translate(0px, -474px);
+            background: transparent;
+            animation: blaa;
+            box-shadow: none;
         }
 
-        @keyframes pulseGlow {
 
-            0%,
-            100% {
-                box-shadow: 0 0 30px #f39c12;
-            }
 
-            50% {
-                box-shadow: 0 0 91px gold;
-            }
+        #openBox:checked~.container .box-lid .sparkle:nth-child(1) {
+            top: -137px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+        }
+
+        #openBox:checked~.container .box-lid .sparkle:nth-child(2) {
+            top: 321px;
+            width: 5px;
+            height: 5px;
+            left: 0;
+            border-radius: 50%;
+        }
+
+        #openBox:checked~.container .box-lid .sparkle:nth-child(3) {
+            top: -137px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+        }
+
+        #openBox:checked~.container .box-lid .sparkle:nth-child(4) {
+            top: -555px;
+            width: 3px;
+            left: 600px;
+            height: 3px;
+            border-radius: 50%;
+        }
+
+        #openBox:checked~.container .box-lid .sparkle:nth-child(5) {
+            top: -137px;
+            width: 3px;
+            left: 685px;
+            height: 3px;
+            border-radius: 50%;
         }
 
         /* Sparkles on lid */
@@ -128,30 +171,37 @@
             top: 16px;
             left: 13px;
             animation-delay: 0s;
+            transition: 3s;
         }
 
         .sparkle:nth-child(2) {
             top: 50%;
             left: 150px;
             animation-delay: 1s;
+            transition: 3s;
+
         }
 
         .sparkle:nth-child(3) {
             top: 120px;
             left: 280px;
             animation-delay: 2s;
+            transition: 3s;
+
         }
 
         .sparkle:nth-child(4) {
             top: 122px;
             left: 12px;
             animation-delay: 1.5s;
+            transition: 3s;
         }
 
         .sparkle:nth-child(5) {
             top: 18px;
             left: 280px;
             animation-delay: 2.5s;
+            transition: 3s;
         }
 
         @keyframes twinkle {
@@ -426,8 +476,12 @@
             height: 80%;
             overflow: visible;
             transform: translateX(-50%);
-            display: flex;
+            display: none;
             align-items: flex-end;
+        }
+
+        #openBox:checked~.balloons {
+            display: flex;
         }
 
         /* Balloon shape */
@@ -480,49 +534,61 @@
                     79% 91%, 50% 70%, 21% 91%, 32% 57%,
                     2% 35%, 39% 35%);
             filter: drop-shadow(0 0 3px #fff8d4);
+
         }
 
         /* Balloon colors */
         .balloon1 {
             background: #ff6584;
             animation-name: floatUp1;
-            animation-duration: 10s;
+            animation-duration: 6s;
             left: 20%;
+            animation-iteration-count: unset;
+
         }
 
         .balloon2 {
             background: #f6a85f;
             animation-name: floatUp2;
-            animation-duration: 11.5s;
+            animation-duration: 7.5s;
             left: 40%;
+            animation-iteration-count: unset;
+
         }
 
         .balloon3 {
             background: #ffbf5a;
             animation-name: floatUp3;
-            animation-duration: 12s;
+            animation-duration: 6.5s;
             left: 60%;
+            animation-iteration-count: unset;
+
         }
 
         .balloon4 {
             background: #7ccccc;
             animation-name: floatUp1;
-            animation-duration: 10.5s;
+            animation-duration: 6s;
             left: 80%;
+            animation-iteration-count: unset;
+
         }
 
         .balloon5 {
             background: #ce6dbd;
             animation-name: floatUp2;
-            animation-duration: 11.8s;
+            animation-duration: 6.38s;
             left: 30%;
+            animation-iteration-count: unset;
+
         }
 
         .balloon6 {
             background: #ffa07a;
             animation-name: floatUp3;
-            animation-duration: 12.5s;
+            animation-duration: 6.34s;
             left: 50%;
+            animation-iteration-count: unset;
         }
 
         /* Floating animations */
@@ -567,7 +633,7 @@
         .arrow {
             position: absolute;
             font-size: 70px;
-            color: gold;
+            color: rgb(44, 222, 242);
             animation: arr 1.5s infinite;
             top: 58%;
         }
@@ -589,6 +655,10 @@
             60% {
                 transform: translateY(25px);
             }
+        }
+
+        #openBox:checked~.arrow {
+            display: none;
         }
     </style>
 </head>
