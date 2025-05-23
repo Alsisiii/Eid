@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Eid Magic Gift Box for Hayat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand:wght@600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: radial-gradient(circle at top, #1b1b2f, #0f0f1a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            user-select: none;
+            perspective: 800px;
+            color: white;
+        }
+
+        /* Hidden checkbox for toggle */
+        #openBox {
+            display: none;
+        }
+
+        /* Container for everything */
+        .container {
+            position: relative;
+            width: 300px;
+            height: 320px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            width: 100%;
+        }
+
+        /* Box base */
+        .box-base {
+            width: 300px;
+            height: 180px;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-radius: 5px 5px 0px 0px;
+            box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.2), 0 41px 35px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            bottom: -144px;
+            left: 50%;
+            z-index: 1;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateX(-50%);
+
+        }
+
+        .box-base::before {
+            content: " ";
+            position: absolute;
+
+        }
+
+        .box-base::after {
+            content: " ";
+            position: absolute;
+        }
+
+        /* Box lid */
+        .box-lid {
+            width: 300px;
+            height: 140px;
+            background: linear-gradient(145deg, #f39c12, #d35400);
+            border-radius: 20px 20px 0 0;
+            box-shadow: inset 0 3px 8px rgba(255, 255, 255, 0.3), 0 6px 10px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform-origin: bottom center;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            z-index: 10;
+            box-shadow: 0 0 190px gold;
+            animation: pulseGlow 2.5s infinite;
+            transform: rotateX(72deg) translateX(-50%);
+        }
+
+        /* Lid open animation on checkbox checked */
+        #openBox:checked~.container .box-lid {
+
+            transform: rotateX(-160deg) translateX(-50%);
+
+            box-shadow: 0 0 40px #f1c40f;
+            animation: none;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px #f39c12;
+            }
+
+            50% {
+                box-shadow: 0 0 91px gold;
+            }
+        }
+
+        /* Sparkles on lid */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                0 0 6px 2px white;
+            filter: drop-shadow(0 0 3px white);
+            opacity: 0.8;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        .sparkle:nth-child(1) {
+            top: 16px;
+            left: 13px;
+            animation-delay: 0s;
+        }
+
+        .sparkle:nth-child(2) {
+            top: 50%;
+            left: 150px;
+            animation-delay: 1s;
+        }
+
+        .sparkle:nth-child(3) {
+            top: 120px;
+            left: 280px;
+            animation-delay: 2s;
+        }
+
+        .sparkle:nth-child(4) {
+            top: 122px;
+            left: 12px;
+            animation-delay: 1.5s;
+        }
+
+        .sparkle:nth-child(5) {
+            top: 18px;
+            left: 280px;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.4);
+            }
+        }
+
+        /* Eid Message container */
+        .eid-message {
+            position: absolute;
+            top: 130px;
+            font-size: 1px;
+            left: 50%;
+            transform: translateX(-50%) translateY(30px);
+            opacity: 0;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+            transition: 1.2s ease 0s;
+            z-index: 15;
+        }
+
+        #openBox:checked~.container .eid-message {
+            font-size: 45px;
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+            top: -174px;
+
+
+        }
+
+        #openBox:checked~.container .eid-message p {
+            font-size: 70px;
+        }
+
+        .eid-message h1 {
+            font-weight: 700;
+            color: #f9d71c;
+            text-shadow:
+                0 0 6px #f9d71c,
+                0 0 12px #f9d71c;
+            user-select: none;
+        }
+
+        .eid-message p {
+            margin-top: 8px;
+            font-family: 'Caveat', cursive;
+            color: #ffef96;
+            user-select: none;
+            font-size: 1px;
+            transition: 1.2s ease 0s;
+        }
+
+        /* Confetti container */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            pointer-events: none;
+            overflow: visible;
+            transform: translateX(-50%);
+            z-index: 12;
+            opacity: 0;
+            transition: opacity 1s ease 1s;
+        }
+
+        #openBox:checked~.container .confetti {
+            opacity: 1;
+        }
+
+        /* Confetti pieces */
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #f1c40f;
+            opacity: 0.9;
+            border-radius: 2px;
+            animation: confettiFall 3s ease forwards;
+        }
+
+        .confetti-piece:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            background: #f1c40f;
+        }
+
+        .confetti-piece:nth-child(2) {
+            left: 25%;
+            animation-delay: 0.3s;
+            background: #e74c3c;
+        }
+
+        .confetti-piece:nth-child(3) {
+            left: 40%;
+            animation-delay: 0.5s;
+            background: #2ecc71;
+        }
+
+        .confetti-piece:nth-child(4) {
+            left: 55%;
+            animation-delay: 0.7s;
+            background: #9b59b6;
+        }
+
+        .confetti-piece:nth-child(5) {
+            left: 70%;
+            animation-delay: 0.9s;
+            background: #f39c12;
+        }
+
+        .confetti-piece:nth-child(6) {
+            left: 85%;
+            animation-delay: 1.1s;
+            background: #3498db;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(250px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sheep container */
+        .sheep-container {
+            position: absolute;
+            bottom: 174px;
+            width: 300px;
+            height: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: visible;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(-20%);
+            transition: opacity 0.1s ease 0.2s;
+            z-index: 11;
+        }
+
+        #openBox:checked~.container .sheep-container {
+            opacity: 1;
+        }
+
+        /* Sheep style */
+        .sheep {
+            position: absolute;
+            bottom: 10px;
+            width: 70px;
+            height: 50px;
+            background: white;
+            border-radius: 50% 50% 40% 40%;
+            box-shadow: 0 0 8px #ccc;
+            animation: bounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 12px;
+        }
+
+        .sheep .head {
+            width: 28px;
+            height: 28px;
+            background: #444;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .sheep .ear {
+            position: absolute;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background: #444;
+            border-radius: 50%;
+        }
+
+        .sheep .ear.left {
+            left: -5px;
+        }
+
+        .sheep .ear.right {
+            right: -5px;
+        }
+
+        /* Eid hat on sheep */
+        .sheep .hat {
+            position: absolute;
+            top: -10px;
+            left: 5px;
+            width: 16px;
+            height: 14px;
+            background: #f39c12;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            box-shadow:
+                0 0 6px #f1c40f;
+        }
+
+        /* Different sheep positions and animation delays */
+        .sheep1 {
+            left: -80px;
+            animation-delay: 0s;
+        }
+
+        .sheep2 {
+            left: -40px;
+            animation-delay: 0.6s;
+            animation-duration: 3.2s;
+        }
+
+        .sheep3 {
+            left: 0px;
+            animation-delay: 1.2s;
+            animation-duration: 3.4s;
+        }
+
+        .sheep4 {
+            left: 40px;
+            animation-delay: 1.8s;
+            animation-duration: 3s;
+        }
+
+        .sheep5 {
+            left: 90px;
+            animation-delay: 2.4s;
+            animation-duration: 3.6s;
+        }
+
+        .sheep6 {
+            left: 130px;
+            animation-delay: 3s;
+            animation-duration: 3.1s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Balloons container */
+        .balloons {
+            pointer-events: none;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 100%;
+            height: 80%;
+            overflow: visible;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* Balloon shape */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: #f06c9b;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: inset 0 -10px 10px rgba(255 255 255 / 0.5), 0 0 10px #ff5e85;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        /* Balloon strings */
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            width: 2px;
+            height: 24px;
+            background: #a44a6f;
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        /* Crescent moon shape inside balloon */
+        .crescent {
+            position: absolute;
+            top: 18px;
+            left: 13px;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: inset 8px 0 0 #f06c9b;
+            filter: drop-shadow(0 0 1px #fff8d4);
+        }
+
+        /* Star shape inside balloon */
+        .star {
+            position: absolute;
+            top: 22px;
+            left: 18px;
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                    2% 35%, 39% 35%);
+            filter: drop-shadow(0 0 3px #fff8d4);
+        }
+
+        /* Balloon colors */
+        .balloon1 {
+            background: #ff6584;
+            animation-name: floatUp1;
+            animation-duration: 10s;
+            left: 20%;
+        }
+
+        .balloon2 {
+            background: #f6a85f;
+            animation-name: floatUp2;
+            animation-duration: 11.5s;
+            left: 40%;
+        }
+
+        .balloon3 {
+            background: #ffbf5a;
+            animation-name: floatUp3;
+            animation-duration: 12s;
+            left: 60%;
+        }
+
+        .balloon4 {
+            background: #7ccccc;
+            animation-name: floatUp1;
+            animation-duration: 10.5s;
+            left: 80%;
+        }
+
+        .balloon5 {
+            background: #ce6dbd;
+            animation-name: floatUp2;
+            animation-duration: 11.8s;
+            left: 30%;
+        }
+
+        .balloon6 {
+            background: #ffa07a;
+            animation-name: floatUp3;
+            animation-duration: 12.5s;
+            left: 50%;
+        }
+
+        /* Floating animations */
+        @keyframes floatUp1 {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-2000px) translateX(0) rotate(10deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatUp2 {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+
+
+            100% {
+                transform: translateY(-2000px) translateX(0) rotate(10deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatUp3 {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+
+
+            100% {
+                transform: translateY(-2000px) translateX(0) rotate(14deg);
+                opacity: 0;
+            }
+        }
+
+        .arrow {
+            position: absolute;
+            font-size: 70px;
+            color: gold;
+            animation: arr 1.5s infinite;
+            top: 58%;
+        }
+
+        @keyframes arr {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(30px);
+            }
+
+            60% {
+                transform: translateY(25px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="openBox" />
+    <label for="openBox" class="container" aria-label="Click to open Eid gift box">
+
+        <!-- Lid -->
+        <div class="box-lid" aria-hidden="true">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+        </div>
+
+        <!-- Base -->
+        <div class="box-base"></div>
+
+        <!-- Eid Message -->
+        <div class="eid-message" aria-live="polite">
+            <h1>Eid Al-Adha Mubarak</h1>
+            <p>كل عام وأنتم بخير</p>
+        </div>
+
+        <!-- Confetti -->
+        <div class="confetti" aria-hidden="true">
+            <div class="confetti-piece"></div>
+            <div class="confetti-piece"></div>
+            <div class="confetti-piece"></div>
+            <div class="confetti-piece"></div>
+            <div class="confetti-piece"></div>
+            <div class="confetti-piece"></div>
+        </div>
+
+        <!-- Sheep -->
+        <div class="sheep-container" aria-hidden="true">
+            <div class="sheep sheep1" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+            <div class="sheep sheep2" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+            <div class="sheep sheep3" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+            <div class="sheep sheep4" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+            <div class="sheep sheep5" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+            <div class="sheep sheep6" role="img" aria-label="Sheep with Eid hat">
+                <div class="head">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                    <div class="hat"></div>
+                </div>
+            </div>
+        </div>
+
+    </label>
+    <div class="arrow">↑</div>
+    <div class="balloons" aria-hidden="true">
+        <div class="balloon balloon1">
+
+        </div>
+        <div class="balloon balloon2">
+
+        </div>
+        <div class="balloon balloon3">
+
+        </div>
+        <div class="balloon balloon4">
+
+        </div>
+        <div class="balloon balloon5">
+
+        </div>
+        <div class="balloon balloon6">
+
+        </div>
+    </div>
+</body>
+
+</html>
