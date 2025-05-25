@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Eid Box for Hayat</title>
+    <title>Eid Box</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand:wght@600&display=swap');
 
@@ -14,8 +14,8 @@
         }
 
         body {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            background: radial-gradient(circle at top, #1b1b2f, #0f0f1a);
+            background: #181c2b;
+            /* ...rest of your styles... */
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -40,6 +40,13 @@
             cursor: pointer;
             transform-style: preserve-3d;
             width: 100%;
+        }
+
+        label.container {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-focus-ring-color: transparent;
+            outline: none !important;
+            background: none !important;
         }
 
         /* Box base */
@@ -569,7 +576,7 @@
             background: #7ccccc;
             animation-name: floatUp1;
             animation-duration: 6s;
-            left: 80%;
+            left: 69%;
             animation-iteration-count: unset;
 
         }
